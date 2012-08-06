@@ -6,7 +6,7 @@ function [y] = cellvecadd(x, v)
 % check once and for all to save time
 persistent bsxfun_exists;
 if isempty(bsxfun_exists); 
-  bsxfun_exists=(exist('bsxfun',5)); 
+  bsxfun_exists=(exist('bsxfun','builtin')); 
   if ~bsxfun_exists; 
     error('bsxfun not found.');
   end
@@ -14,7 +14,7 @@ end
 
 nx = size(x);
 if ~iscell(x) || length(nx)>2 || all(nx>1),
-  error('incorrect input for cellmean');
+  error('incorrect input for cellvecadd');
 end
 
 if ~iscell(v),

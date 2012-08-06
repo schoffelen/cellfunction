@@ -96,7 +96,8 @@ else
     if nargout<=1
       varargout{1} = siz(:,1:max(numdim));
     elseif nargout>=max(numdim)
-      for k = 1:numdim, varargout{k} = reshape(siz(:,k), size(x)); end
+      for k = 1:numdim,           varargout{k} = reshape(siz(:,k), size(x)); end
+      for k = (numdim+1):nargout, varargout{k} = ones(size(x));              end  
     end
   else
     varargout{1} = reshape(siz(:,dim), size(x));

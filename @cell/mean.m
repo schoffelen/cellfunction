@@ -6,20 +6,15 @@ function [m] = mean(x, dim)
 % X should be an linear cell-array of matrices for which the size in at 
 % least one of the dimensions should be the same for all cells 
 
-nx = size(x);
-if ~iscell(x) || length(nx)>2 || all(nx>1),
-  error('incorrect input for cellmean');
-end
-
+D = checkinput(x);
 if nargin==1,
-  [scx1, scx2] = size2(x,[],'cell');
-  if     all(scx1==scx1(1)), dim = 2;
-  elseif all(scx2==scx2(1)), dim = 1; %let second dimension prevail
-  else   error('no dimension to compute mean for');
-  end
+  dim = find(D,1,'last');
+else
+  % check whether the requested dim can be used
+  if ~D(dim), error('data can not be concatenated across dimension %d',dim); end
 end
-
-nx   = max(nx);
+nx   = max(size(x));
 nsmp = cellfun('size', x, dim);
 ssmp = cellfun(@sum,   x, repmat({dim},1,nx), 'UniformOutput', 0);
-m    = sum(cell2mat(ssmp), dim)./sum(nsmp);  
+m    = sum(cell2mat(ssmp), dim)./sum(nsmp);
+

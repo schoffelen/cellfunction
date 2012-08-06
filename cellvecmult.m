@@ -15,7 +15,7 @@ end
 
 nx = size(x);
 if ~iscell(x) || length(nx)>2 || all(nx>1),
-  error('incorrect input for cellmean');
+  error('incorrect input for cellvecmult');
 end
 
 if ~iscell(v),

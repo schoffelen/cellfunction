@@ -6,7 +6,8 @@ if numel(shift)>1
   x = x(:)';     
   y = cell(numel(shift),numel(x));
   for k = 1:numel(shift)
-    y(k,:) = cellshift(x, shift(k), dim, max(abs(shift)));
+    %y(k,:) = cellshift(x, shift(k), dim, max(abs(shift)));
+    y(k,:) = cellshift(x, shift(k), dim, [abs(min(shift)) abs(max(shift))]);
   end
   for k = 1:size(y,2)
     y{1,k} = cell2mat(y(:,k));
