@@ -33,7 +33,7 @@ end
 %   dim = mat2cell([sx1(:) sx2(:)]'', nx(1), nx(2));
 % else   error('inconsistent input');
 % end  
-% y = cellfun(@vplus, x, v, dim, 'UniformOutput', 0);
+%y = cellfun(@vplus, x, v, dim, 'UniformOutput', 0);
 
 y  = cellfun(@bsxfun, repmat({@plus}, nx), x, v, 'UniformOutput', 0);
 
