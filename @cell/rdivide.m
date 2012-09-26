@@ -1,3 +1,9 @@
 function output = rdivide(input1, input2)
 
-output = cellfun(@rdivide, input1, repmat({input2}, size(input1)), 'uniformoutput', false);
+if ~iscell(input1)
+  input1 = repmat({input1}, size(input2));
+end
+if ~iscell(input2)
+  input2 = repmat({input2}, size(input1));
+end
+output = cellfun(@rdivide, input1, input2, 'uniformoutput', false);
