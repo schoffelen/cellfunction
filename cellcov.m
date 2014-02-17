@@ -10,7 +10,7 @@ function [c] = cellcov(x, y, dim, flag)
 
 if nargin<4 && iscell(y)
   flag = 1;
-elseif nargin<4 && isnumeric(y)
+elseif nargin==3 && isnumeric(y)
   flag = dim;
 end
 

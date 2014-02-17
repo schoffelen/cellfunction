@@ -23,4 +23,5 @@ end
 y = cellshift(x, shift, dim);
 
 % compute covariance
-c = cov(y, 1, dim, flag);
+%c = cov(y, 1, dim, flag);
+c = cellnancov(y, 1, dim, flag);
