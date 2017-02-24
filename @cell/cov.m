@@ -22,6 +22,7 @@ end
 
 if numel(varargin)>=1 && isempty(varargin{1})
   normalizeflag = 0;
+  varargin      = varargin(2:end);
 elseif numel(varargin)>=1
   normalizeflag = varargin{1};
   varargin      = varargin(2:end);

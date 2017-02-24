@@ -14,10 +14,10 @@ if numel(varargin)==1, varargin{2} = []; end
 if numel(varargin)==2, varargin{3} = 1;  end
 
 if varargin{3},
-  mu = mean(x, varargin{2});
+  mu = nanmean(x, varargin{2});
   x  = cellvecadd(x, -mu);
 end
-s = std(x, varargin{1:end});
+s = nanstd(x, varargin{1:end});
 z = cellvecmult(x, 1./s);
 
 if ~varargin{3},

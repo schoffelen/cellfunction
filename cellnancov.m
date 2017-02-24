@@ -116,35 +116,60 @@ end
 function [c,mx,my] = nancovc(x, y, dim)
 
 if nargin==2,
+  % only a single data matrix is provided
   dim = y;
-  y   = x;
-end
+  if islogical(x), x = double(x); end
 
-if islogical(x), x = double(x); end
-if islogical(y), y = double(y); end
+  notfinitex    = ~isfinite(x);
+  x(notfinitex) = 0;
 
-finitex = isfinite(x);
-finitey = isfinite(y);
-
-x(~finitex)=0;
-y(~finitey)=0;
-
-if dim==1,
-  c  = x'*y;
-  for k = 1:size(x,2)
-    z=1;
+  if dim==1,
+    c  = x'*x;
+    for k = 1:size(x,2)
+    end
+  elseif dim==2,
+    c  = x*x';
+    nx = size(x,1);
+    mx = repmat(sum(x,2),[1 nx]);
+    for k = 1:nx
+      mx(:,k) = mx(:,k) - sum(x(:,notfinitex(k,:)),2);
+    end
+  end
+  
+else
     
-  end
-elseif dim==2,
-  c = x*y';
-  nx = size(x,1);
-  ny = size(y,1);
-  mx = zeros(nx,ny);
-  my = zeros(nx,ny);
-  for k = 1:ny
-    mx(:,k) = sum(x.*double(finitey(k*ones(nx,1),:)&finitex),2);
-  end
-  for k = 1:nx
-    my(k,:) = sum(y.*double(finitey&finitex(k*ones(ny,1),:)),2)';
+  if islogical(x), x = double(x); end
+  if islogical(y), y = double(y); end
+
+  notfinitex = ~isfinite(x);
+  notfinitey = ~isfinite(y);
+
+  x(notfinitex) = 0;
+  y(notfinitey) = 0;
+
+  if dim==1,
+    c  = x'*y;
+    for k = 1:size(x,2)
+    end
+  elseif dim==2,
+    c = x*y';
+    nx = size(x,1);
+    ny = size(y,1);
+    mx = repmat(sum(x,2),  [1 ny]);
+    my = repmat(sum(y,2)', [nx 1]);
+    for k = 1:ny
+      mx(:,k) = mx(:,k) - sum(x(:,notfinitey(k,:)),2);
+      %tmpx(:,notfinitey(k,:)) = 0;
+      %mx(:,k) = sum(tmpx,2);
+      %tmpx(:,notfinitey(k,:)) = x(:,notfinitey(k,:));
+      %mx(:,k) = sum(x.*double(~notfinitey(k*ones(nx,1),:)&~notfinitex),2);
+    end
+    for k = 1:nx
+      my(k,:) = my(k,:) - sum(y(:,notfinitex(k,:)),2)';
+      %tmpy(:,notfinitex(k,:)) = 0;
+      %my(k,:) = sum(tmpy,2);
+      %tmpy(:,notfinitex(k,:)) = y(:,notfinitex(k,:));
+      %my(k,:) = sum(y.*double(~notfinitey&~notfinitex(k*ones(ny,1),:)),2)';
+    end
   end
 end

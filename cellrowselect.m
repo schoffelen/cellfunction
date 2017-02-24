@@ -11,7 +11,7 @@ if ~iscell(x) || length(nx)>2 || all(nx>1),
   error('incorrect input for cellrows');
 end
 
-y = cellfun(@rowc, x, repmat(mat2cell(rows(:),length(rows),1),[nx]), 'UniformOutput', 0);
+y = cellfun(@rowc, x, repmat(mat2cell(rows(:),length(rows),1),nx), 'UniformOutput', 0);
 
 function [y] = rowc(x, rows)
 
