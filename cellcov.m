@@ -1,6 +1,6 @@
 function [c] = cellcov(x, y, dim, flag)
 
-% [C] = CELLCOV(X, DIM) computes the covariance, across all cells in x along 
+% CELLCOV computes the covariance, across all cells in x along 
 % the dimension dim. When there are three inputs, covariance is computed between
 % all cells in x and y
 % 

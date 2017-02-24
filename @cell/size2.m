@@ -1,9 +1,15 @@
 function [varargout] = size2(x, dim, cellflag)
 
-% SIZE2 Size of array.
-%   
-% Overloaded size function for cell-arrays with extra functionality.
-% Works on individual cells if third input argument is TRUE or 'cell'.
+% SIZE2 Size of cells in cell-array.
+% 
+% Use as:
+%   [varargout] = size2(x, dim, cellflag)
+%
+% Input arguments:
+%   x   = cell-array
+%   dim = dimension argument, default []
+%   cellflag = true (default) or false. If false, size2 behaves as size,
+%     otherwise the size of each of the cells is returned.
 
 if nargin<3, cellflag = false; end
 if nargin<2, dim      = [];    end
