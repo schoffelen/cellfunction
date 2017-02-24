@@ -4,15 +4,6 @@ function [y] = cellvecmult(x, v)
 % to all rows or columns of each matrix in cell-array X
 % V can be a vector or a cell-array of vectors
 
-% check once and for all to save time
-persistent bsxfun_exists;
-if isempty(bsxfun_exists); 
-    bsxfun_exists=(exist('bsxfun')==5); 
-    if ~bsxfun_exists; 
-        error('bsxfun not found.');
-    end
-end
-
 nx = size(x);
 if ~iscell(x) || length(nx)>2 || all(nx>1),
   error('incorrect input for cellvecmult');
