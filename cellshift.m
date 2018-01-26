@@ -12,7 +12,7 @@ end
 if nargin<4 || isempty(maxshift)
   maxshift = max(abs(shift));
 else
-  if any(abs(shift))>abs(maxshift)
+  if any(abs(shift(:)))>abs(maxshift)
     error('the value for maxshift should be >= shift');
   end
 end
