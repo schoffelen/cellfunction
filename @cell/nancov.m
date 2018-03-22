@@ -57,7 +57,7 @@ end
 
 nx   = max(nx);
 if isempty(y)
-  n = cov(isfinite(x),1,[],0);
+  n = cov(isfinite(x),1,dim,0);
   if dim==1
     n = n*sum(scx1);
   elseif dim==2
@@ -77,7 +77,7 @@ if isempty(y)
   Mx = M;
   My = M';
 else
-  n = cov(isfinite(x), isfinite(y),1,[],0);
+  n = cov(isfinite(x), isfinite(y),1,dim,0);
   if dim==1
     n = n*sum(scx1);
   elseif dim==2
@@ -161,16 +161,17 @@ elseif dim==2
   if nancolumny
     mx = repmat(sum(x(:,finitey(1,:)),2),[1 ny]);
   else
-    for k = 1:ny
-      mx(:,k) = sum(x(:,finitey(k,:)),2);
-    end
+%     for k = 1:ny
+%       mx(:,k) = sum(x(:,finitey(k,:)),2);
+%     end
+    mx = x*double(finitey)';
   end
   if nancolumnx
     my = repmat(sum(y(:,finitex(1,:)),2)',[nx 1]);
   else
-    for k = 1:nx
-      my(k,:) = sum(y(:,finitex(k,:)),2)';
-      %my(k,:) = sum(y.*double(finitey&finitex(k*ones(ny,1),:)),2)';
-    end
+%     for k = 1:nx
+%       my(k,:) = sum(y(:,finitex(k,:)),2)';
+%     end
+    my = double(finitex)*y';
   end
 end
