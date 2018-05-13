@@ -1,4 +1,4 @@
-function [c] = nancov(x, varargin)
+function [c, n2] = nancov(x, varargin)
 
 % [C] = NANCOV(X, NORMALIZEFLAG, DIM) computes the covariance, across all cells in x along 
 %        the dimension dim, accounting for NaNs
